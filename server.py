@@ -10,7 +10,7 @@ app = quart_cors.cors(quart.Quart(__name__), allow_origin=[])
 
 SENSOR_DATA_FILE_NAME = "sensor_data.csv"
 SENSOR_DATA_DIRECTORY = 'sensor_data_logs'
-SENSOR_DATA_FILE_BUFFER_SIZE = os.getenv('SENSOR_DATA_FILE_BUFFER_SIZE') or 100
+SENSOR_DATA_FILE_BUFFER_SIZE = int(os.getenv('SENSOR_DATA_FILE_BUFFER_SIZE')) or 100
 SENSOR_DATA_CHECK_BUFFER_DATE = ""
 
 

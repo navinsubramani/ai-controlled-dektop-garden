@@ -22,10 +22,11 @@ def maintain_sensor_data_buffer():
     # if it is not, then we do nothing
     global SENSOR_DATA_CHECK_BUFFER_DATE
     current_date = datetime.now().strftime("%Y-%m-%d")
-    if current_date != SENSOR_DATA_CHECK_BUFFER_DATE or True:
+    if current_date != SENSOR_DATA_CHECK_BUFFER_DATE:
         SENSOR_DATA_CHECK_BUFFER_DATE = current_date
         filename = os.path.join(SENSOR_DATA_DIRECTORY, SENSOR_DATA_FILE_NAME)
         file_exists = os.path.isfile(filename)
+        print("Checked for buffer size...")
         if file_exists:
             # read the CSV file including the first row
             with open(filename, 'r') as csvfile:
@@ -37,11 +38,12 @@ def maintain_sensor_data_buffer():
             if row_count > SENSOR_DATA_FILE_BUFFER_SIZE:
                 # remove the row count - SENSOR_DATA_FILE_BUFFER_SIZE rows from the CSV file
                 new_data = existing_data[(row_count - SENSOR_DATA_FILE_BUFFER_SIZE):]
-                print(row_count, SENSOR_DATA_FILE_BUFFER_SIZE, existing_data, new_data, sep='\n')
+                # print(row_count, SENSOR_DATA_FILE_BUFFER_SIZE, existing_data, new_data, sep='\n')
                 # write the new data to the CSV file
                 with open(filename, 'w', newline='') as csvfile:
                     writer = csv.writer(csvfile)
                     writer.writerows(new_data)
+                    print("Updated the buffer...")
 
 @app.route('/log_sensor_data', methods=['POST'])
 async def log_sensor_data():

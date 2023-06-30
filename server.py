@@ -14,7 +14,7 @@ SENSOR_DATA_DIRECTORY = 'sensor_data_logs'
 SENSOR_DATA_FILE_BUFFER_SIZE = int(os.getenv('SENSOR_DATA_FILE_BUFFER_SIZE')) or 100
 SENSOR_DATA_CHECK_BUFFER_DATE = ""
 
-session["MOTOR_STATE"] = {
+DEFAULT_MOTOR_STATE = {
     "action": False,
     "id": -1,
     "upTime": 10,
@@ -127,7 +127,7 @@ async def get_sensor_data():
 @app.route('/get_motor_status', methods=['POST'])
 async def get_motor_status():
     
-    temp_MOTOR_STATE = session["MOTOR_STATE"]
+    temp_MOTOR_STATE = session.setdefault("MOTOR_STATE", DEFAULT_MOTOR_STATE)
 
     session["MOTOR_STATE"] = {
         "action": False,

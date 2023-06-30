@@ -4,16 +4,17 @@ from datetime import datetime
 
 import quart
 import quart_cors
-from quart import request, Quart
+from quart import request, Quart, session
 
 app = quart_cors.cors(quart.Quart(__name__), allow_origin=[])
+app.secret_key = 'your-secret-key'
 
 SENSOR_DATA_FILE_NAME = "sensor_data.csv"
 SENSOR_DATA_DIRECTORY = 'sensor_data_logs'
 SENSOR_DATA_FILE_BUFFER_SIZE = int(os.getenv('SENSOR_DATA_FILE_BUFFER_SIZE')) or 100
 SENSOR_DATA_CHECK_BUFFER_DATE = ""
 
-MOTOR_STATE = {
+session["MOTOR_STATE"] = {
     "action": False,
     "id": -1,
     "upTime": 10,
@@ -126,11 +127,9 @@ async def get_sensor_data():
 @app.route('/get_motor_status', methods=['POST'])
 async def get_motor_status():
     
-    global MOTOR_STATE
+    temp_MOTOR_STATE = session["MOTOR_STATE"]
 
-    temp_MOTOR_STATE = MOTOR_STATE
-
-    MOTOR_STATE = {
+    session["MOTOR_STATE"] = {
         "action": False,
         "id": -1,
         "upTime": 10,
@@ -143,14 +142,13 @@ async def get_motor_status():
 
 @app.route('/set_motor_status', methods=['POST'])
 async def set_motor_status():
-    global MOTOR_STATE
 
     data = await request.form
     action = data.get('action')
     id = data.get('id')
     upTime = data.get('upTime')
 
-    MOTOR_STATE = {
+    session["MOTOR_STATE"] = {
         "action": action,
         "id": id,
         "upTime": upTime,

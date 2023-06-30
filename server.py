@@ -1,6 +1,7 @@
 import csv
 import os
 from datetime import datetime
+import json as JSON
 
 import quart
 import quart_cors
@@ -50,6 +51,41 @@ def maintain_sensor_data_buffer():
                     writer = csv.writer(csvfile)
                     writer.writerows(new_data)
                     print("Updated the buffer...")
+
+def write_motor_data(motor_state):
+    # Create directory for CSV files (if it doesn't exist)
+    os.makedirs(SENSOR_DATA_DIRECTORY, exist_ok=True)
+
+    # Generate CSV filename based on date
+    filename = os.path.join(SENSOR_DATA_DIRECTORY, "motor_data.txt")
+
+    # Check if the file already exists
+    # file_exists = os.path.isfile(filename)
+
+    # Overrite Write to the text file
+    with open(filename, 'w', newline='') as txtfile:
+        txtfile.write(JSON.dumps(motor_state))
+
+
+def read_motor_data():
+    # Create directory for CSV files (if it doesn't exist)
+    os.makedirs(SENSOR_DATA_DIRECTORY, exist_ok=True)
+
+    # Generate CSV filename based on date
+    filename = os.path.join(SENSOR_DATA_DIRECTORY, "motor_data.txt")
+
+    # Check if the file already exists
+    file_exists = os.path.isfile(filename)
+    if file_exists:
+        # Read data from CSV file and not using pandas
+        with open(filename, 'r') as txtfile:
+            data = JSON.loads(txtfile.read())
+        return data
+    else:
+        return DEFAULT_MOTOR_STATE
+
+
+write_motor_data(DEFAULT_MOTOR_STATE)
 
 @app.route('/log_sensor_data', methods=['POST'])
 async def log_sensor_data():
@@ -127,13 +163,8 @@ async def get_sensor_data():
 @app.route('/get_motor_status', methods=['POST'])
 async def get_motor_status():
     
-    temp_MOTOR_STATE = session.setdefault("MOTOR_STATE", DEFAULT_MOTOR_STATE)
-
-    session["MOTOR_STATE"] = {
-        "action": False,
-        "id": -1,
-        "upTime": 10,
-    }
+    temp_MOTOR_STATE = read_motor_data
+    write_motor_data(DEFAULT_MOTOR_STATE)
 
     return {
         'success': True,
@@ -148,11 +179,11 @@ async def set_motor_status():
     id = data.get('id')
     upTime = data.get('upTime')
 
-    session["MOTOR_STATE"] = {
+    write_motor_data({
         "action": action,
         "id": id,
         "upTime": upTime,
-    }
+    })
 
     return {
         'success': True,

@@ -13,6 +13,11 @@ SENSOR_DATA_DIRECTORY = 'sensor_data_logs'
 SENSOR_DATA_FILE_BUFFER_SIZE = int(os.getenv('SENSOR_DATA_FILE_BUFFER_SIZE')) or 100
 SENSOR_DATA_CHECK_BUFFER_DATE = ""
 
+MOTOR_STATE = {
+    "action": False,
+    "id": -1,
+    "upTime": 10,
+}
 
 def maintain_sensor_data_buffer():
     # find the current date and SENSOR_DATA_CHECK_BUFFER_DATE, if they are different, then we need to check the buffer
@@ -116,6 +121,44 @@ async def get_sensor_data():
             'success': False,
             'message': 'No data found for the specified date.'
         }
+
+
+@app.route('/get_motor_status', methods=['POST'])
+async def get_motor_status():
+    
+    global MOTOR_STATE
+
+    temp_MOTOR_STATE = MOTOR_STATE
+
+    MOTOR_STATE = {
+        "action": False,
+        "id": -1,
+        "upTime": 10,
+    }
+
+    return {
+        'success': True,
+        'data': temp_MOTOR_STATE
+    }
+
+@app.route('/set_motor_status', methods=['POST'])
+async def set_motor_status():
+    global MOTOR_STATE
+
+    data = await request.form
+    action = data.get('action')
+    id = data.get('id')
+    upTime = data.get('upTime')
+
+    MOTOR_STATE = {
+        "action": action,
+        "id": id,
+        "upTime": upTime,
+    }
+
+    return {
+        'success': True,
+    }
 
 
 def main():

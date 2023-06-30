@@ -163,7 +163,7 @@ async def get_sensor_data():
 @app.route('/get_motor_status', methods=['POST'])
 async def get_motor_status():
     
-    temp_MOTOR_STATE = read_motor_data
+    temp_MOTOR_STATE = read_motor_data()
     write_motor_data(DEFAULT_MOTOR_STATE)
 
     return {

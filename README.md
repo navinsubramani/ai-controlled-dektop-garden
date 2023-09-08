@@ -5,6 +5,8 @@ This is a fun project that makes uses AI to monitor and control the Desktop Plan
 
 Plants in the Desktop Garden are continuously monitored on its environmental conditions like Moisture, UV light, Temperature, and Ambient Light. The Desktop Garden also contains the controls for watering the plant and controlled UV ray exposure. Now an AI is introduced into this system that uses the data sensed by these sensors from the garden and decides when and how much to water the plant and when to expose it to the UV rays based on the plant's health.
 
+This [Blog in Boring Engineer]() contains a demo video of the existing system.
+
 ## System design
 ![image](https://github.com/navinsubramani/ai-controlled-dektop-garden/assets/17029551/e8282de4-01c3-4401-9224-d49dd4b5a4b9)
 
@@ -30,6 +32,15 @@ Plants in the Desktop Garden are continuously monitored on its environmental con
 4. UV Light is turned ON and OFF during a certain time period in a day using a Timer Switch
 5. PI runs a Python program (shared in this repo) to acquire the data from the sensor and control the relay.
 
+### Streaming the Plant Health data to Cloud
+1. Raspberry Pi runs a Python program that continuously reads the sensor values every 1 minute and then publishes the data to the service running on Heroku through REST endpoints.
+2. Similar to the Edge code in Raspberry Pi that publishes the data, the server Python code (web service using Quart) that receives the health data is also added to this repo.
+3. The Web service in Heroku saves the data to file once it receives the information.
+
+### Viewing the live data in the Dashboard
+1. The Web service on Heroku also services an endpoint using which clients can receive the health trend.
+2. Graphana server for dashboarding can be installed in any machine (cloud/client) and a dashboard can be built to view different sensor trends across time.
+
 ## Technology Used
 1. Front End: Grafana (for viewing the time-series sensor data)
 3. Backend: Python 3.11, Quart framework for service, hosted in Heroku
@@ -41,7 +52,7 @@ Plants in the Desktop Garden are continuously monitored on its environmental con
 1. Integrate the AI support using OpenAI APIs in the server
 
 ## Reference
-1. Connect the temperature sensor to the pi and program it
+1. Connect the temperature sensor to the Pi and program it
   a. [Raspberry Pi DS18B20 Sensor](https://www.youtube.com/watch?v=X48OoO8r2Vo)
   b. [Raspberry-Pi-Sensors/ds18b20_single.py at master · israel-dryer/Raspberry-Pi-Sensors · GitHub](https://github.com/israel-dryer/Raspberry-Pi-Sensors/blob/master/ds18b20_single.py)
 2. LED connection
@@ -49,7 +60,7 @@ Plants in the Desktop Garden are continuously monitored on its environmental con
   b. [Turning on an LED with your Raspberry Pi's GPIO Pins | The Pi Hut](https://thepihut.com/blogs/raspberry-pi-tutorials/27968772-turning-on-an-led-with-your-raspberry-pis-gpio-pins)
 3. Moisture Sensor
    a. [ADC | CircuitPython Libraries on any Computer with MCP2221 | Adafruit Learning System](https://github.com/navinsubramani/ai-controlled-dektop-garden/assets/17029551/87036970-900e-4c37-ba58-b1189c26ec93)
-   b. Run Thonny from command line so it can read the environment variable and loads the libraries. [Link](https://superuser.com/questions/664169/what-is-the-difference-between-etc-environment-and-etc-profile)
+   b. Run Thonny from the command line so it can read the environment variable and load the libraries. [Link](https://superuser.com/questions/664169/what-is-the-difference-between-etc-environment-and-etc-profile)
  4. UV Sensor: LTR390
     a. [Digital LTR390-UV Ultraviolet Sensor (C), Direct UV Index Value Output, I2C Bus | UV Sensor (C) (waveshare.com)](https://github.com/navinsubramani/ai-controlled-dektop-garden/assets/17029551/fe2feb36-b147-4067-9040-d9cf242ad8b9)
     b. [UV Sensor (C)](https://www.waveshare.com/wiki/UV_Sensor_(C))

@@ -36,3 +36,26 @@ Plants in the Desktop Garden are continuously monitored on its environmental con
 4. Hardware Controller: Raspberry Pi 3 B+ and Relay Module
 5. Sensors: Moisture Sensor, Temperature Sensor, UV sensor
 6. Actuators: UV light, DC Motor
+
+## To Do
+1. Integrate the AI support using OpenAI APIs in the server
+
+## Reference
+1. Connect the temperature sensor to the pi and program it
+  a. [Raspberry Pi DS18B20 Sensor](https://www.youtube.com/watch?v=X48OoO8r2Vo)
+  b. [Raspberry-Pi-Sensors/ds18b20_single.py at master · israel-dryer/Raspberry-Pi-Sensors · GitHub](https://github.com/israel-dryer/Raspberry-Pi-Sensors/blob/master/ds18b20_single.py)
+2. LED connection
+  a. [Connect an LED to the Raspberry Pi | Coding projects for kids and teens](https://projects.raspberrypi.org/en/projects/rpi-connect-led)
+  b. [Turning on an LED with your Raspberry Pi's GPIO Pins | The Pi Hut](https://thepihut.com/blogs/raspberry-pi-tutorials/27968772-turning-on-an-led-with-your-raspberry-pis-gpio-pins)
+3. Moisture Sensor
+   a. [ADC | CircuitPython Libraries on any Computer with MCP2221 | Adafruit Learning System](https://github.com/navinsubramani/ai-controlled-dektop-garden/assets/17029551/87036970-900e-4c37-ba58-b1189c26ec93)
+   b. Run Thonny from command line so it can read the environment variable and loads the libraries. [Link](https://superuser.com/questions/664169/what-is-the-difference-between-etc-environment-and-etc-profile)
+ 4. UV Sensor: LTR390
+    a. [Digital LTR390-UV Ultraviolet Sensor (C), Direct UV Index Value Output, I2C Bus | UV Sensor (C) (waveshare.com)](https://github.com/navinsubramani/ai-controlled-dektop-garden/assets/17029551/fe2feb36-b147-4067-9040-d9cf242ad8b9)
+    b. [UV Sensor (C)](https://www.waveshare.com/wiki/UV_Sensor_(C))
+5. Grafana
+   a. [Grafana CLI | Documentation](https://grafana.com/docs/grafana/latest/cli/#:~:text=To%20invoke%20Grafana%20CLI%2C%20add,full%20path%20to%20the%20CLI.)
+6. Other Links
+   a. [Package updater fails](https://forums.raspberrypi.com/viewtopic.php?t=318242)
+   b. [Post Install Checks | Circuit Python Libraries](https://learn.adafruit.com/circuitpython-libraries-on-any-computer-with-mcp2221/post-install-checks)
+   c. [Raspberry Pi Documentation](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html)

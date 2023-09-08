@@ -21,6 +21,10 @@ Plants in the Desktop Garden are continuously monitored on its environmental con
 10. [1 x myTouchSmart Indoor Digital Timer Switch](https://www.homedepot.com/p/myTouchSmart-Indoor-Digital-24-Hour-Fashion-Timer-with-Cloth-Cover-2-Settings-1-Polarized-Outlet-66985/324058579)
 11. Prototype PCBs, Male-Male, Male-Female Wires, Solder Kit as required
 
+### Hardware Connections at Edge
+
+
+
 ## Technology Used
 1. Front End: Grafana (for viewing the time-series sensor data)
 3. Backend: Python 3.11, Quart framework for service, hosted in Heroku

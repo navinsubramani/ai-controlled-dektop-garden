@@ -22,8 +22,13 @@ Plants in the Desktop Garden are continuously monitored on its environmental con
 11. Prototype PCBs, Male-Male, Male-Female Wires, Solder Kit as required
 
 ### Hardware Connections at Edge
+![image](https://github.com/navinsubramani/ai-controlled-dektop-garden/assets/17029551/f2340923-2657-41bb-8fe8-96c6e20f3967)
 
-
+1. The Sensor with digital output is connected to Raspberry Pi directly through I2C or One Wire pins.
+2. The analog sensor (Moisture) is converted into digital using ADC using MCP221A and then connected to the USB interface of Pi.
+3. The Water supply is controlled using the mini motor pump which is then turned ON/OFF using the Relay & Pi DIO pins
+4. UV Light is turned ON and OFF during a certain time period in a day using a Timer Switch
+5. PI runs a Python program (shared in this repo) to acquire the data from the sensor and control the relay.
 
 ## Technology Used
 1. Front End: Grafana (for viewing the time-series sensor data)

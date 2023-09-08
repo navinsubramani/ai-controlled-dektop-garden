@@ -5,7 +5,7 @@ This is a fun project that makes uses AI to monitor and control the Desktop Plan
 
 Plants in the Desktop Garden are continuously monitored on its environmental conditions like Moisture, UV light, Temperature, and Ambient Light. The Desktop Garden also contains the controls for watering the plant and controlled UV ray exposure. Now an AI is introduced into this system that uses the data sensed by these sensors from the garden and decides when and how much to water the plant and when to expose it to the UV rays based on the plant's health.
 
-This [Blog in Boring Engineer]() contains a demo video of the existing system.
+This [Blog in Boring Engineer](https://boringengineer.com/2023/09/08/pi-controlled-desktop-garden-diy-guide/) contains a demo video of the existing system.
 
 ## System design
 ![image](https://github.com/navinsubramani/ai-controlled-dektop-garden/assets/17029551/e8282de4-01c3-4401-9224-d49dd4b5a4b9)
